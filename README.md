@@ -7,6 +7,7 @@
 - imasugu
 - sales-os
 - medipre
+- personal-tax-os
 
 その日に動きがあったプロジェクトのみ、その日のファイルにセクションが追加される。
 
