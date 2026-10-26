@@ -76,3 +76,22 @@ daily/
 - 横道に逸れたこと / なぜ逸れたか
 - 反省 / 学んだこと / 備忘
 - commit / deploy
+
+コミットもセッション証跡も無い日は「コミット記録なし（作業状況未確認）」、
+コミットは無いがClaude Codeセッション履歴で実作業が確認できた日は
+「`<project>`（コミットなし・セッション記録で作業を確認）」とし、
+「確認できた事実」のみを記載する。「作業なし」と断定しない。
+
+## 更新方法（自動化）
+
+`scripts/` に、対象プロジェクトのgit履歴とClaude Codeセッション履歴から
+日報を更新するスクリプト一式がある。既存の日報は上書きせず、無い部分だけ
+追加する。使い方は `.claude/skills/chronicle-update/SKILL.md` を参照。
+
+- `scripts/collect_commits_all.py` — origin/main基準でコミットを収集
+  （fetch失敗時は不完全として明示。未マージ/未push作業ブランチは自動では
+  含めず「要確認」として報告のみ）
+- `scripts/collect_sessions.py` — Claude Codeセッション履歴から実作業の痕跡を収集
+- `scripts/update_daily.py` — 日報へ非破壊的に反映（dry-run → `--apply`）
+- `scripts/verify_chronicle.py` — 日付欠落・コミット欠落・重複・インデックス整合性・
+  GitHub反映状況などを検証
